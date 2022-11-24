@@ -71,7 +71,7 @@ const Article = ({article}: {article: article}) => {
             dispatch(docsActions.setArticle(response.data));
             setCompArticle(response.data);
             setImageMode(false);
-            document.getElementById(`${compArticle._id}_imageFile`)?.value = null;
+            document.getElementById(`${compArticle._id}_imageFile`) && (document.getElementById(`${compArticle._id}_imageFile`).value = null);
           })
           .catch(function (error) {
             toast.dismiss();

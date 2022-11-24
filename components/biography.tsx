@@ -72,7 +72,7 @@ const Biography = ({biography}: {biography: biography}) => {
             dispatch(docsActions.setBiography(response.data));
             setCompBiography(response.data);
             setImageMode(false);
-            document.getElementById(`${compBiography._id}_imageFile`)?.value = null;
+            document.getElementById(`${compBiography._id}_imageFile`) && (document.getElementById(`${compBiography._id}_imageFile`).value = null);
           })
           .catch(function (error) {
             toast.dismiss();
