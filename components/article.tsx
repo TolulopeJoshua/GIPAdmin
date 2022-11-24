@@ -71,7 +71,7 @@ const Article = ({article}: {article: article}) => {
             dispatch(docsActions.setArticle(response.data));
             setCompArticle(response.data);
             setImageMode(false);
-            document.getElementById(`${compArticle._id}_imageFile`).value = null;
+            document.getElementById(`${compArticle._id}_imageFile`)?.value = null;
           })
           .catch(function (error) {
             toast.dismiss();
@@ -83,7 +83,7 @@ const Article = ({article}: {article: article}) => {
       toast.loading('Updating...')
       let formData = new FormData();
       const url = proxy + `/text/${article._id}`;
-      axios.put(url, { text: document.getElementById(`${article._id}_text`).innerHTML }, 
+      axios.put(url, { text: document.getElementById(`${article._id}_text`)?.innerHTML }, 
       { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
           toast.dismiss();
           toast.success(' Updated ')

@@ -72,7 +72,7 @@ const Biography = ({biography}: {biography: biography}) => {
             dispatch(docsActions.setBiography(response.data));
             setCompBiography(response.data);
             setImageMode(false);
-            document.getElementById(`${compBiography._id}_imageFile`).value = null;
+            document.getElementById(`${compBiography._id}_imageFile`)?.value = null;
           })
           .catch(function (error) {
             toast.dismiss();
@@ -84,7 +84,7 @@ const Biography = ({biography}: {biography: biography}) => {
       toast.loading('Updating...')
       const url = proxy + `/text/${biography._id}`;
       axios.put(url, {
-        text: document.getElementById(`${biography._id}_text`).innerHTML
+        text: document.getElementById(`${biography._id}_text`)?.innerHTML
       }, { headers: {'Authorization': `Bearer ${auth.token}`}})
         .then(function (response) {
           toast.dismiss();
