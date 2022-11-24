@@ -23,7 +23,10 @@ const Requests = () => {
           <Sidebar page={'Books'} params={[{title: 'Title', text: router.query.title}, {title: 'Author', text: router.query.author}, {title: '_Id', text: router.query._id}]} /> :
           folder == 'users' ?
           <Sidebar page={'Users'} params={[{title: 'firstName', text: ''}, {title: 'lastName', text: ''}, {title: 'Email', text: ''}]} /> :
-          <Sidebar page={capitalize(folder?.toString())} params={[{title: 'Name', text: router.query.name}, {title: 'Role', text: router.query.role}, {title: '_Id', text: router.query._id}]} />
+          folder =='articles' ?
+          <Sidebar page={'Articles'} params={[{title: 'Name', text: router.query.name}, {title: 'Role', text: router.query.role}, {title: '_Id', text: router.query._id}]} /> :
+          <Sidebar page={'Biographies'} params={[{title: 'Name', text: router.query.name}, {title: 'Role', text: router.query.role}, {title: '_Id', text: router.query._id}]} />
+
         }
       </div>
       <ListBorder list={compDocs} className='w-full h-full flex flex-col justify-center align-middle overflow-y-auto overflow-x-hidden'>
