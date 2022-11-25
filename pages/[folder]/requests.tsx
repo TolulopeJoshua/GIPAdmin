@@ -19,7 +19,7 @@ const Requests = () => {
   return (
     <div className='w-screen h-full flex relative'>
       <span onClick={() => setSidebar(true)} className='absolute z-10 left-0 top-14 md:hidden bg-white border-t-2 border-slate-500 rotate-90 text-xs p-1 px-2 -mx-3 cursor-pointer text-slate-500'>MENU</span>
-      <div className={`${!sidebar && '-translate-x-full'} transition-transform duration-500 absolute w-full top-0 left-0 bg-[#374151] z-10 -mx-2 md:translate-x-0 md:mx-0 md:bg-transparent md:relative md:flex md:w-64 h-full shrink-0`}>
+      <div className={`${!sidebar && '-translate-x-full'} transition-transform duration-500 absolute w-full top-0 left-0 bg-[#374151] z-10 md:translate-x-0 md:bg-transparent md:relative md:flex md:w-64 h-full shrink-0`}>
         <button onClick={() => setSidebar(false)} className='p-2 mx-2 text-2xl md:hidden'><AiOutlineClose /></button>
         {
           folder == 'books' ? 

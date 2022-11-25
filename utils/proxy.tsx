@@ -1,3 +1,3 @@
-const proxy = 'https://godinprints.org/api';
+const proxy = 'https://godinprints.org/admin';
 
 export default proxy

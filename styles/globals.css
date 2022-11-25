@@ -5,9 +5,7 @@
 
 @layer base {
   button, .btn {
-    @apply hover:bg-white/10;
-    @apply rounded-md;
-    @apply cursor-pointer
+    @apply p-2 disabled:text-slate-500 disabled:bg-transparent cursor-pointer rounded-md hover:bg-white/10
   }
 }
 

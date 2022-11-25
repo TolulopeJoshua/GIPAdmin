@@ -62,6 +62,9 @@ const docsSlice = createSlice({
         }
       })
     },
+    deleteBook(state, action) {
+      state.docs.books = state.docs.books.filter(book => book._id !== action.payload._id)
+    },
     setArticle(state, action) {
       state.docs.articles = state.docs.articles.map(article => {
         if (article._id == action.payload._id) {
@@ -71,6 +74,9 @@ const docsSlice = createSlice({
         }
       })
     },
+    deleteArticle(state, action) {
+      state.docs.articles = state.docs.articles.filter(article => article._id !== action.payload._id)
+    },
     setBiography(state, action) {
       state.docs.biographies = state.docs.biographies.map(bio => {
         if (bio._id == action.payload._id) {
@@ -79,6 +85,9 @@ const docsSlice = createSlice({
           return bio
         }
       })
+    },
+    deleteBiography(state, action) {
+      state.docs.biographies = state.docs.biographies.filter(bio => bio._id !== action.payload._id)
     },
     setUser(state, action) {
       state.docs.users = state.docs.users.map(user => {

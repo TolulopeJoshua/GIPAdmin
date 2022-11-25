@@ -16,7 +16,7 @@ const Book = ({ book }: {book: book}) => {
     const dispatch = useDispatch();
     const { auth } = useSelector(({ docs }: {docs: docsState}) => docs);
 
-    const onChange = (e: ChangeEvent) => {
+    const onChange = (e: any) => {
         setCompBook(initBook => {
             return {...initBook, [e.target.name]: e.target.value}
         })
@@ -36,6 +36,23 @@ const Book = ({ book }: {book: book}) => {
             toast.dismiss();
             toast.error('An error occured.')
           })
+    }
+    const onDelete = (e: any) => {
+        e.preventDefault();
+        if (confirm('Sure to delete?')) {
+          toast.loading('Deleting...')
+          const url = proxy + `/book/${compBook._id}`;
+          axios.delete(url, { headers: {'Authorization': `Bearer ${auth.token}`}})
+            .then(function (response) {
+              dispatch(docsActions.deleteBook(response.data));
+              toast.dismiss()
+              toast.success(' Deleted ')
+            })
+            .catch(function (error) {
+              toast.dismiss();
+              toast.error('An error occured.')
+            })
+        }
     }
     const onApprove = (e: MouseEvent) => {
         e.preventDefault();    
@@ -71,7 +88,7 @@ const Book = ({ book }: {book: book}) => {
             dispatch(docsActions.setBook(response.data));
             setCompBook(response.data);
             setImageMode(false);
-            document.getElementById(`${compBook._id}_imageFile`).value = null;
+            document.getElementById(`${compBook._id}_imageFile`)!.value = null;
           })
           .catch(function (error) {
             toast.dismiss();
@@ -102,9 +119,9 @@ const Book = ({ book }: {book: book}) => {
             </div>
             <div className='flex mt-auto pt-2'>
                 <button onClick={onApprove} type='button' className='text-xs p-2 mr-auto'>{book.isApproved ? 'DISAPPROVE' : 'APPROVE'}</button>
+                <button disabled={!changed} onClick={onSave}><AiOutlineSave /></button>
                 <a href={`https://godinprintsdocuments.s3.amazonaws.com/${book.document.key}`} className='btn p-2'><AiOutlineDownload /></a>
-                <button disabled={!changed} onClick={onSave} className='p-2 disabled:text-slate-500 disabled:bg-transparent'><AiOutlineSave /></button>
-                {/* <button type='button' className='p-2'><AiOutlineDelete /></button> */}
+                <button disabled={auth.admin !== 5} onClick={onDelete} type='button'><AiOutlineDelete /></button>
             </div>
         </form>
         <div className='w-6/12 px-1 h-full overflow-y-auto right-0 top-0 scrollbar text-sm text-justify relative'>

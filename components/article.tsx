@@ -38,6 +38,23 @@ const Article = ({article}: {article: article}) => {
             toast.error('An error occured.')
           })
     }
+    const onDelete = (e: any) => {
+        e.preventDefault();
+        if (confirm('Sure to delete?')) {
+          toast.loading('Deleting...')
+          const url = proxy + `/doc/${compArticle._id}`;
+          axios.delete(url, { headers: {'Authorization': `Bearer ${auth.token}`}})
+            .then(function (response) {
+              dispatch(docsActions.deleteArticle(response.data));
+              toast.dismiss()
+              toast.success(' Deleted ')
+            })
+            .catch(function (error) {
+              toast.dismiss();
+              toast.error('An error occured.')
+            })
+        }
+    }
     const onApprove = (e: any) => {
         e.preventDefault();    
         toast.loading('Updating...')
@@ -129,7 +146,7 @@ const Article = ({article}: {article: article}) => {
             <div className='flex pt-2 mt-auto'>
                 <button onClick={onApprove} type='button' className='text-xs p-2 mr-auto'>{article.isApproved ? 'DISAPPROVE' : 'APPROVE'}</button>
                 <button disabled={!changed} onClick={onSave} className='p-2 disabled:text-slate-500 disabled:bg-transparent'><AiOutlineSave /></button>
-                {/* <button type='button' className='p-2'><AiOutlineDelete /></button> */}
+                <button disabled={auth.admin !== 5} onClick={onDelete} type='button' className='p-2'><AiOutlineDelete /></button>
             </div>
         </form>
         <div contentEditable={textMode} id={`${article._id}_text`} className={'w-7/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}>

@@ -60,6 +60,7 @@ export interface user {
 export interface auth {
     email: string,
     name: string,
+    admin: number,
     token: string,
     timeout: string,
 }
