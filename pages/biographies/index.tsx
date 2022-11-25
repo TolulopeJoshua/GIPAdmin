@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { biography, docsState } from '../../types';
-import { AiOutlineStepBackward, AiOutlineStepForward, AiOutlineFastBackward, AiOutlineFastForward } from 'react-icons/ai';
+import { AiOutlineStepBackward, AiOutlineStepForward, AiOutlineFastBackward, AiOutlineFastForward, AiOutlineClose } from 'react-icons/ai';
 import Sidebar from '../../components/sidebar';
 import Biography from '../../components/biography';
 import Footer from '../../components/footer';
@@ -12,6 +12,7 @@ const layout = ({ children }: {
     children: React.ReactNode;
   }) => {
     const [startIndex, setStartIndex] = useState(0);
+    const [sidebar, setSidebar] = useState(false);
     const {loading, docs} = useSelector(({ docs }: {docs: docsState}) => docs);
     const topRef = useRef(null)
     const router = useRouter();
@@ -46,10 +47,11 @@ const layout = ({ children }: {
     }, [router.query])
 
   return (
-    <div className='w-screen h-full flex'>
-        {/* Sidebar */}
-        <div className='hidden md:flex w-64 h-full shrink-0'>
-          <Sidebar page={'Biographies'} params={[{title: 'Name', text: router.query.name}, {title: 'Role', text: router.query.role}, {title: '_Id', text: router.query._id}]} />
+    <div className='w-screen h-full flex relative'>
+      <span onClick={() => setSidebar(true)} className='absolute z-10 left-0 top-14 md:hidden bg-white border-t-2 border-slate-500 rotate-90 text-xs p-1 px-2 -mx-3 cursor-pointer text-slate-500'>MENU</span>
+      <div className={`${!sidebar && '-translate-x-full'} transition-transform duration-500 absolute w-full top-0 left-0 bg-[#374151] z-10 -mx-2 md:translate-x-0 md:mx-0 md:bg-transparent md:relative md:flex md:w-64 h-full shrink-0`}>
+        <button onClick={() => setSidebar(false)} className='p-2 mx-2 text-2xl md:hidden'><AiOutlineClose /></button>
+          <Sidebar close={() => setSidebar(false)} page={'Biographies'} params={[{title: 'Name', text: router.query.name}, {title: 'Role', text: router.query.role}, {title: '_Id', text: router.query._id}]} />
         </div>
         <ListBorder list={biographies} className='w-full h-full flex justify-center align-middle overflow-y-auto overflow-x-hidden'>
             <div className='flex flex-col h-max w-full '>

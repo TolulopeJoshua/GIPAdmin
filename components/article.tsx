@@ -111,7 +111,7 @@ const Article = ({article}: {article: article}) => {
      
   return (
     <div className='bg-white/5 w-[700px] border-y-4 border-slate-700 max-w-full rounded-md flex relative overflow-hidden'>
-        <form className='w-4/12 px-1 h-full flex flex-col'>
+        <form className='w-5/12 px-1 h-full flex flex-col'>
             <div className='relative'>
                 <img className='block p-0 m-0 rounded-md' src={article.image.key == 'none' ? 'none.png' : `https://godinprintsdocuments.s3.amazonaws.com/${article.image.key}`} alt="bio_pic" />
                 <label htmlFor={`${compArticle._id}_imageFile`} className='btn absolute bottom-0 right-0 p-1 bg-slate-500 hover:bg-slate-400 hover:text-white'><AiOutlineUpload /></label>
@@ -132,7 +132,7 @@ const Article = ({article}: {article: article}) => {
                 {/* <button type='button' className='p-2'><AiOutlineDelete /></button> */}
             </div>
         </form>
-        <div contentEditable={textMode} id={`${article._id}_text`} className={'w-8/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}>
+        <div contentEditable={textMode} id={`${article._id}_text`} className={'w-7/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}>
             Loading text...
         </div>
         <button onClick={() => setTextMode(true)} className='absolute right-2 bottom-0 p-2 bg-slate-500 hover:bg-slate-400 hover:text-white'><AiOutlineEdit /></button>

@@ -72,7 +72,7 @@ const Biography = ({biography}: {biography: biography}) => {
             dispatch(docsActions.setBiography(response.data));
             setCompBiography(response.data);
             setImageMode(false);
-            document.getElementById(`${compBiography._id}_imageFile`) && (document.getElementById(`${compBiography._id}_imageFile`)!.value = null);
+            (document.getElementById(`${compBiography._id}_imageFile`)!.value = null);
           })
           .catch(function (error) {
             toast.dismiss();
@@ -105,16 +105,16 @@ const Biography = ({biography}: {biography: biography}) => {
         const url = proxy + `/text/${biography._id}`;
         axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}})
           .then(function (response) { 
-            document.getElementById(`${biography._id}_text`) && (document.getElementById(`${biography._id}_text`)!.innerHTML = response.data);
+            (document.getElementById(`${biography._id}_text`)!.innerHTML = response.data);
           })
           .catch(function (error) {
-            document.getElementById(`${biography._id}_text`) && (document.getElementById(`${biography._id}_text`)!.innerHTML = 'Error loading text!');
+            (document.getElementById(`${biography._id}_text`)!.innerHTML = 'Error loading text!');
           })
     }, [])
      
   return (
     <div className='bg-white/5 w-[700px] border-y-4 border-slate-700 max-w-full rounded-md flex relative overflow-clip'>
-    <form className='w-4/12 px-1 h-full flex flex-col'>
+    <form className='w-5/12 px-1 h-full flex flex-col'>
             <div className='relative'>
                 <img className='block p-0 m-0 rounded-md' src={biography.image.key == 'none' ? 'none.png' : `https://godinprintsdocuments.s3.amazonaws.com/${biography.image.key}`} alt="bio_pic" />
                 <label htmlFor={`${compBiography._id}_imageFile`} className='btn absolute bottom-0 right-0 p-1 bg-slate-500 hover:bg-slate-400 hover:text-white'><AiOutlineUpload /></label>
@@ -151,7 +151,7 @@ const Biography = ({biography}: {biography: biography}) => {
                 {/* <button type='button' className='p-2'><AiOutlineDelete /></button> */}
             </div>
         </form>
-        <div contentEditable={textMode} id={`${biography._id}_text`} className={'w-8/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}>
+        <div contentEditable={textMode} id={`${biography._id}_text`} className={'w-7/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}>
             Loading text...
         </div>
         <button onClick={() => setTextMode(true)} className='absolute right-2 bottom-0 p-2 bg-slate-500 hover:bg-slate-400 hover:text-white'><AiOutlineEdit /></button>
