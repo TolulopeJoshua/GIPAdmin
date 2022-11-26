@@ -115,15 +115,9 @@ const Article = ({article}: {article: article}) => {
     useEffect(() => {
         setChanged(JSON.stringify(article) !== JSON.stringify(compArticle))
     }, [compArticle])
+
     useEffect(() => {
-      const url = proxy + `/text/${article._id}`;
-      axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}})
-        .then(function (response) { 
-          document.getElementById(`${article._id}_text`) && (document.getElementById(`${article._id}_text`)!.innerHTML = response.data);
-        })
-        .catch(function (error) {
-          document.getElementById(`${article._id}_text`) && (document.getElementById(`${article._id}_text`)!.innerHTML = 'Error loading text!');
-        })
+      document.getElementById(`${article._id}_text`)!.innerHTML = (auth.admin ? compArticle.text : 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat labore autem minima soluta cum voluptatum mollitia sapiente suscipit corporis voluptatibus voluptates ad dolore ut dicta itaque quos nemo temporibus, quam aliquid? Doloremque, vel ducimus, assumenda beatae hic accusamus sed totam quod culpa harum consectetur ut consequuntur earum dolores quos eos architecto placeat impedit. Saepe, ipsa? Dolores similique doloremque provident consectetur doloribus consequatur porro voluptates itaque blanditiis, iure impedit illo vitae saepe voluptate, beatae ducimus nostrum modi facere repellat at rem ad! Sed veniam laboriosam beatae reprehenderit libero dolorum enim sequi, corrupti numquam eveniet incidunt quos, optio ut illo, culpa ad nostrum animi. Vitae dicta eligendi debitis consequatur, quam et laborum tenetur blanditiis excepturi animi placeat velit sed neque illum dignissimos ipsam quod nulla distinctio nemo veritatis nesciunt. Sunt fugit ex ut quod voluptatibus culpa rem maiores quidem. Quas quo in molestias consequatur alias temporibus, mollitia hic inventore quae quaerat atque incidunt modi laboriosam corporis unde, molestiae, officiis sit? Perferendis vero ducimus doloribus a consequuntur asperiores voluptate eius maxime modi perspiciatis rem necessitatibus tempore obcaecati, distinctio accusantium ad excepturi quos unde vel dignissimos suscipit! Sunt corporis debitis similique porro in molestiae amet officiis illum non, provident ipsum accusantium deleniti quod officia. Sint labore commodi enim corrupti perspiciatis ab voluptas quisquam expedita, iusto placeat eaque harum saepe! Quidem tempora laudantium non in, mollitia architecto eius veritatis pariatur consequuntur rerum ducimus maxime qui perspiciatis, id fuga ullam labore. Laboriosam incidunt porro beatae dolores magni? Facilis eaque quam error dolores illo laudantium perferendis voluptate cum delectus. Quasi, laboriosam rem voluptatibus dolores eum illo perspiciatis hic repellat eos sit praesentium temporibus reprehenderit sed asperiores quidem iste! Soluta, omnis aperiam! Eum voluptates officiis, consectetur nihil voluptatum sit modi consequuntur libero odit maiores sunt magni beatae, minus impedit culpa quaerat exercitationem quisquam iusto. Culpa voluptatum, corporis mollitia at iste voluptates itaque accusantium quos expedita facere omnis minima. Distinctio, qui nam? Fugit, mollitia eum cupiditate sit distinctio eius ut deserunt nobis voluptatibus saepe odio fugiat tempora? Molestias quam reiciendis corrupti qui. Aut laborum maxime tenetur quas. Sed aliquid laborum hic tenetur debitis quidem quis iusto inventore molestias. Amet nobis praesentium laboriosam sit voluptate beatae et quos soluta tempore? Officiis iste modi atque accusantium unde, tempore provident. Quia temporibus, saepe blanditiis unde doloremque magni nostrum fugit quisquam enim. Cum voluptas molestiae a incidunt id quo aspernatur asperiores, accusantium animi distinctio reiciendis amet numquam dignissimos, sint atque, ipsa doloribus error? In consequatur sunt optio distinctio, cum necessitatibus quia. Veritatis accusantium reprehenderit quae praesentium, est facere quas, provident quidem vel nemo inventore nihil consectetur doloribus itaque sit adipisci illo sunt aspernatur! Sit odio aut similique, natus quis vel cum maxime dolores earum sunt unde accusamus voluptatum ipsam nihil recusandae labore totam iure facilis atque explicabo laudantium. Magni dolor perferendis est reprehenderit molestiae aliquam fuga. Repellendus nemo dicta eaque reiciendis aperiam suscipit autem asperiores cupiditate delectus modi earum quae natus, accusamus error ratione rerum pariatur debitis, et fuga magni quasi aspernatur facilis! Quos perspiciatis ad mollitia beatae numquam reprehenderit aliquid voluptatum animi.')
     }, [])
      
   return (
@@ -149,9 +143,7 @@ const Article = ({article}: {article: article}) => {
                 <button disabled={auth.admin !== 5} onClick={onDelete} type='button' className='p-2'><AiOutlineDelete /></button>
             </div>
         </form>
-        <div contentEditable={textMode} id={`${article._id}_text`} className={'w-7/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}>
-            Loading text...
-        </div>
+        <div contentEditable={textMode} id={`${article._id}_text`} className={'w-7/12 p-1 pb-8 h-full overflow-y-auto absolute right-0 top-0 scrollbar text-sm text-justify whitespace-pre-line ' + (textMode && 'bg-slate-200 text-black')}></div>
         <button onClick={() => setTextMode(true)} className='absolute right-2 bottom-0 p-2 bg-slate-500 hover:bg-slate-400 hover:text-white'><AiOutlineEdit /></button>
         <button onClick={saveText} className={`absolute right-2 bottom-0 p-2 bg-slate-500 hover:bg-slate-400 hover:text-white ${!textMode && 'hidden'}`}><MdOutlineDone /></button>
     </div>

@@ -5,6 +5,7 @@ export interface article {
     role: string,
     source: string,
     story: string,
+    text: string,
     isApproved: boolean,
 }
 
@@ -18,6 +19,7 @@ export interface biography {
     deathYear: number,
     source: string,
     story: string,
+    text: string,
     isApproved: boolean,
 }
 
