@@ -35,6 +35,7 @@ export default function Navbar() {
         toast.dismiss()
         toast.error('An error occured!')
       })
+      router.push('/');
     }
   }
     

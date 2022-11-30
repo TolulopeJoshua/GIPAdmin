@@ -61,7 +61,7 @@ const layout = ({ children }: {
         dispatch(docsActions.setLoading(false))
         toast.error('Error refreshing data.')
       }); 
-    })
+    }, [startIndex])
 
   return (
     <div className='w-screen h-full flex relative'>

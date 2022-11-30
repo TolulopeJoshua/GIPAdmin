@@ -32,7 +32,7 @@ const Requests = () => {
       dispatch(docsActions.setLoading(false))
       toast.error('Error refreshing data.')
     }); 
-  })
+  }, [])
   return (
     <div className='w-screen h-full flex relative'>
       <span onClick={() => setSidebar(true)} className='absolute z-10 left-0 top-14 md:hidden bg-white border-t-2 border-slate-500 rotate-90 text-xs p-1 px-2 -mx-3 cursor-pointer text-slate-500'>MENU</span>

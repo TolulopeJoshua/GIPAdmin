@@ -37,7 +37,7 @@ const index = () => {
       dispatch(docsActions.setLoading(false))
       toast.error('Error refreshing data.')
     }); 
-  })
+  }, [])
 
   return (
     <div className='w-screen h-full flex relative'>
