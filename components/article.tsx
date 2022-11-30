@@ -124,7 +124,7 @@ const Article = ({article}: {article: article}) => {
     <div className='bg-white/5 w-[700px] border-y-4 border-slate-700 max-w-full rounded-md flex relative overflow-hidden'>
         <form className='w-5/12 px-1 h-full flex flex-col'>
             <div className='relative'>
-                <img className='block p-0 m-0 rounded-md' src={article.image.key == 'none' ? 'none.png' : `https://godinprintsdocuments.s3.amazonaws.com/${article.image.key}`} alt="bio_pic" />
+                <img className='block p-0 m-0 rounded-md' src={article.image.key == 'none' ? article.image.link ? article.image.link : 'none.png' : `https://godinprintsdocuments.s3.amazonaws.com/${article.image.key}`} alt="bio_pic" />
                 <label htmlFor={`${compArticle._id}_imageFile`} className='btn absolute bottom-0 right-0 p-1 bg-slate-500 hover:bg-slate-400 hover:text-white'><AiOutlineUpload /></label>
                 <input onChange={onSelectImage} className={`absolute bottom-0 right-0 px-2 py-1 w-full bg-slate-400 text-slate-700 text-xs font-semibold outline-none border-0 file:hidden ${!imageMode && 'hidden'}`} type={'file'} id={`${compArticle._id}_imageFile`}/>
                 <label onClick={uploadImage} className={`btn absolute bottom-0 right-0 p-1 bg-slate-500 hover:bg-slate-400 hover:text-white ${!imageMode && 'hidden'}`}><AiOutlineUpload /></label>

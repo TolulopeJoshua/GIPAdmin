@@ -1,21 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/sidebar'
 import { useRouter } from 'next/router'
 import Footer from '../../components/footer';
 import Request from '../../components/Request';
 import capitalize from '../../utils/capitalize';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { docsState, request } from '../../types';
 import ListBorder from '../../components/ListBorder';
 import { AiOutlineClose } from 'react-icons/ai';
+import proxy from '../../utils/proxy';
+import axios from 'axios';
+import { docsActions } from '../../store';
+import toast from 'react-hot-toast';
 
 const Requests = () => {
 
   const router = useRouter();
   const folder = router.query.folder;
   const [sidebar, setSidebar] = useState(false)
-  const {loading, docs} = useSelector(({ docs }: {docs: docsState}) => docs);
+  const dispatch = useDispatch();
+  const {auth, docs} = useSelector(({ docs }: {docs: docsState}) => docs);
   const compDocs = docs.requests.filter((request: request) => request.parentId == folder && request.likes.length == 0)
+
+  useEffect(() => {
+    const url = proxy + '/all';
+    axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
+      dispatch(docsActions.setDocs(response.data))
+      dispatch(docsActions.setLoading(false))
+    }).catch(function (error) {
+      dispatch(docsActions.setError(true))
+      dispatch(docsActions.setLoading(false))
+      toast.error('Error refreshing data.')
+    }); 
+  })
   return (
     <div className='w-screen h-full flex relative'>
       <span onClick={() => setSidebar(true)} className='absolute z-10 left-0 top-14 md:hidden bg-white border-t-2 border-slate-500 rotate-90 text-xs p-1 px-2 -mx-3 cursor-pointer text-slate-500'>MENU</span>

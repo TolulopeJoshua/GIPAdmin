@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Footer from '../../components/footer'
 import Sidebar from '../../components/sidebar'
 import User from '../../components/user'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { docsState, user } from '../../types';
 import ListBorder from '../../components/ListBorder'
 import { AiOutlineClose } from 'react-icons/ai'
+import proxy from '../../utils/proxy'
+import axios from 'axios'
+import { docsActions } from '../../store'
+import toast from 'react-hot-toast'
 
 const index = () => {
   const [sidebar, setSidebar] = useState(false);
+  const dispatch = useDispatch();
   const {auth, docs} = useSelector(({ docs }: {docs: docsState}) => docs);
 
   const router = useRouter();
@@ -20,6 +25,18 @@ const index = () => {
       }
     }
     return false;
+  })
+
+  useEffect(() => {
+    const url = proxy + '/all';
+    axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
+      response.data.users && dispatch(docsActions.setDocs(response.data))
+      dispatch(docsActions.setLoading(false))
+    }).catch(function (error) {
+      dispatch(docsActions.setError(true))
+      dispatch(docsActions.setLoading(false))
+      toast.error('Error refreshing data.')
+    }); 
   })
 
   return (

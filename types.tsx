@@ -1,6 +1,6 @@
 export interface article {
     _id: object,
-    image: {key: string},
+    image: {key: string, link: string},
     name: string,
     role: string,
     source: string,

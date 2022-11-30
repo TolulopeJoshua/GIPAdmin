@@ -2,18 +2,23 @@ import Sidebar from '../../components/sidebar';
 import Article from '../../components/article';
 import Footer from '../../components/footer';
 import { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { article, docsState } from '../../types';
 import { AiOutlineStepBackward, AiOutlineStepForward, AiOutlineFastBackward, AiOutlineFastForward, AiOutlineClose } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import ListBorder from '../../components/ListBorder';
+import proxy from '../../utils/proxy';
+import axios from 'axios';
+import { docsActions } from '../../store';
+import toast from 'react-hot-toast';
 
 const layout = ({ children }: {
     children: React.ReactNode;
   }) => {
     const [startIndex, setStartIndex] = useState(0);
     const [sidebar, setSidebar] = useState(false);
-    const {loading, docs} = useSelector(({ docs }: {docs: docsState}) => docs);
+    const dispatch = useDispatch();
+    const {auth, docs} = useSelector(({ docs }: {docs: docsState}) => docs);
     const topRef = useRef(null)
     const router = useRouter();
 
@@ -45,6 +50,18 @@ const layout = ({ children }: {
       setStartIndex(0);
       topRef.current?.scrollIntoView();
     }, [router.query])
+
+    useEffect(() => {
+      const url = proxy + '/all';
+      axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
+        response.data.articles && dispatch(docsActions.setDocs(response.data))
+        dispatch(docsActions.setLoading(false))
+      }).catch(function (error) {
+        dispatch(docsActions.setError(true))
+        dispatch(docsActions.setLoading(false))
+        toast.error('Error refreshing data.')
+      }); 
+    })
 
   return (
     <div className='w-screen h-full flex relative'>
