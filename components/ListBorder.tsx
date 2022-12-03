@@ -6,7 +6,7 @@ const ListBorder = ({list, className, children}: {list: Array<object>, className
     const { loading, error } = useSelector(({ docs }: {docs: docsState}) => docs);
 
   return (
-    list.length ? 
+    list.length && !loading && !error ? 
     <div className={className}>{children}</div> :
     <div className='border-2 border-dashed rounded-md w-full max-w-screen-sm h-4/6 flex justify-center items-center mx-[auto] my-[auto]'>
         {
