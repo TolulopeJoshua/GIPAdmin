@@ -27,8 +27,8 @@ export default function Navbar() {
       toast.loading('Logging out...')
       const url = proxy + '/logout';
       axios.post(url, { email: auth.email }, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function(response) {
-        dispatch(docsActions.resetStore({}))
         localStorage.removeItem('auth');
+        dispatch(docsActions.resetStore({}))
         toast.dismiss();
         toast.success('Logged out successfully.')
       }).catch(function(error) {
@@ -59,7 +59,7 @@ export default function Navbar() {
       const auth = JSON.parse(localStorage.getItem('auth') || '');
       if (auth && (Date.now() < auth.timeout)) dispatch(docsActions.setAuth(auth));
     }
-  }, [])
+  }, [auth])
   
   const router = useRouter();
   const {pathname, query} = useRouter();
