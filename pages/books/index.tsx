@@ -51,17 +51,17 @@ const layout = ({ children }: {
       topRef.current?.scrollIntoView();
     }, [router.query])
 
-    useEffect(() => {
-      const url = proxy + '/all';
-      axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
-        response.data.books && dispatch(docsActions.setDocs(response.data))
-        dispatch(docsActions.setLoading(false))
-      }).catch(function (error) {
-        dispatch(docsActions.setError(true))
-        dispatch(docsActions.setLoading(false))
-        toast.error('Error refreshing data.')
-      }); 
-    }, [startIndex, router.query])
+    // useEffect(() => {
+    //   const url = proxy + '/all';
+    //   axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
+    //     response.data.books && dispatch(docsActions.setDocs(response.data))
+    //     dispatch(docsActions.setLoading(false))
+    //   }).catch(function (error) {
+    //     dispatch(docsActions.setError(true))
+    //     dispatch(docsActions.setLoading(false))
+    //     toast.error('Error refreshing data.')
+    //   }); 
+    // }, [startIndex, router.query])
 
   return (
     <div className='w-screen h-full flex relative'>

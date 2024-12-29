@@ -27,17 +27,17 @@ const index = () => {
     return false;
   })
 
-  useEffect(() => {
-    const url = proxy + '/all';
-    axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
-      response.data.users && dispatch(docsActions.setDocs(response.data))
-      dispatch(docsActions.setLoading(false))
-    }).catch(function (error) {
-      dispatch(docsActions.setError(true))
-      dispatch(docsActions.setLoading(false))
-      toast.error('Error refreshing data.')
-    }); 
-  }, [])
+  // useEffect(() => {
+  //   const url = proxy + '/all';
+  //   axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
+  //     response.data.users && dispatch(docsActions.setDocs(response.data))
+  //     dispatch(docsActions.setLoading(false))
+  //   }).catch(function (error) {
+  //     dispatch(docsActions.setError(true))
+  //     dispatch(docsActions.setLoading(false))
+  //     toast.error('Error refreshing data.')
+  //   }); 
+  // }, [])
 
   return (
     <div className='w-screen h-full flex relative'>
