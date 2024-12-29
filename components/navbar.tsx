@@ -29,6 +29,7 @@ export default function Navbar() {
       axios.post(url, { email: auth.email }, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function(response) {
         clearTimeout(auth.timeout);
         dispatch(docsActions.resetStore({}))
+        localStorage.removeItem('auth');
         toast.dismiss();
         toast.success('Logged out successfully.')
       }).catch(function(error) {
@@ -36,6 +37,9 @@ export default function Navbar() {
         toast.error('An error occured!')
       })
       router.push('/');
+    } else {
+      const auth = JSON.parse(localStorage.getItem('auth') || '');
+      if (auth) dispatch(docsActions.setAuth(auth));
     }
   }
     

@@ -22,7 +22,9 @@ const Login = () => {
       const timeout = setTimeout(() => {
         dispatch(docsActions.resetStore({}))
       }, 24 * 59 * 60 * 1000);
-      dispatch(docsActions.setAuth({...response.data, timeout}));
+      const auth = {...response.data, timeout};
+      dispatch(docsActions.setAuth(auth));
+      localStorage.setItem('auth', JSON.stringify(auth));
       toast.dismiss()
       router.push('/');
     }).catch(function(error) {
