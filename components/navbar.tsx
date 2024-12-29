@@ -36,9 +36,6 @@ export default function Navbar() {
         toast.error('An error occured!')
       })
       router.push('/');
-    } else {
-      const auth = JSON.parse(localStorage.getItem('auth') || '');
-      if (auth && (Date.now() < auth.timeout)) dispatch(docsActions.setAuth(auth));
     }
   }
     
@@ -58,8 +55,11 @@ export default function Navbar() {
         toast.dismiss()
         toast.error('Error fetching data. Please reload.')
       }); 
+    } else {
+      const auth = JSON.parse(localStorage.getItem('auth') || '');
+      if (auth && (Date.now() < auth.timeout)) dispatch(docsActions.setAuth(auth));
     }
-  }, [auth])
+  }, [])
   
   const router = useRouter();
   const {pathname, query} = useRouter();
