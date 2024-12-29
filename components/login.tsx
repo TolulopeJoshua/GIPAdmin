@@ -19,9 +19,7 @@ const Login = () => {
     e.preventDefault();
     const url = proxy + '/login';
     axios.post(url, { username, password }).then(function(response) {
-      const timeout = setTimeout(() => {
-        dispatch(docsActions.resetStore({}))
-      }, 24 * 59 * 60 * 1000);
+      const timeout = Date.now() + 24 * 59 * 60 * 1000;
       const auth = {...response.data, timeout};
       dispatch(docsActions.setAuth(auth));
       localStorage.setItem('auth', JSON.stringify(auth));

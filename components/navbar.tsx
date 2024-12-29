@@ -27,7 +27,6 @@ export default function Navbar() {
       toast.loading('Logging out...')
       const url = proxy + '/logout';
       axios.post(url, { email: auth.email }, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function(response) {
-        clearTimeout(auth.timeout);
         dispatch(docsActions.resetStore({}))
         localStorage.removeItem('auth');
         toast.dismiss();
@@ -39,7 +38,7 @@ export default function Navbar() {
       router.push('/');
     } else {
       const auth = JSON.parse(localStorage.getItem('auth') || '');
-      if (auth) dispatch(docsActions.setAuth(auth));
+      if (auth && (Date.now() < auth.timeout)) dispatch(docsActions.setAuth(auth));
     }
   }
     
