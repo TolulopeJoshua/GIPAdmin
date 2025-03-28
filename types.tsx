@@ -1,11 +1,11 @@
 export interface article {
     _id: object,
-    image: {key: string, link: string},
+    image: {key?: string, link?: string},
     name: string,
     role: string,
     source: string,
     story: string,
-    text: string,
+    text?: string,
     isApproved: boolean,
 }
 
@@ -19,7 +19,7 @@ export interface biography {
     deathYear: number,
     source: string,
     story: string,
-    text: string,
+    text?: string,
     isApproved: boolean,
 }
 
@@ -29,7 +29,8 @@ export interface book {
     title: string,
     author: string,
     filetype: string,
-    document: {key: string, size: number}
+    document: {key: string, size: number},
+    affiliates?: { amazon: string },
     isApproved: boolean,
 }
 

@@ -17,7 +17,10 @@ const Book = ({ book }: {book: book}) => {
     const { auth } = useSelector(({ docs }: {docs: docsState}) => docs);
 
     const onChange = (e: any) => {
-        setCompBook(initBook => {
+        setCompBook((initBook: book) => {
+          if (e.target.name == 'amazon') {
+            return { ...initBook, affiliates: { amazon: e.target.value} };
+          }
             return {...initBook, [e.target.name]: e.target.value}
         })
     }
@@ -117,6 +120,8 @@ const Book = ({ book }: {book: book}) => {
                     <textarea readOnly className='bg-transparent border-b-2 border-0 w-full px-1 text-xs scrollbar' value={size} id="" rows={1}></textarea>
                 </div>
             </div>
+            <label className='text-xs text-slate-500 m-0 p-1' htmlFor="">Amazon Link</label>
+            <textarea className='bg-transparent border-b-2 border-0 w-full px-1 text-xs scrollbar' value={compBook.affiliates.amazon} onChange={onChange} name="amazon" id="" rows={1}></textarea>
             <div className='flex mt-auto pt-2'>
                 <button onClick={onApprove} type='button' className='text-xs p-2 mr-auto'>{book.isApproved ? 'DISAPPROVE' : 'APPROVE'}</button>
                 <button disabled={!changed} onClick={onSave}><AiOutlineSave /></button>
@@ -131,7 +136,7 @@ const Book = ({ book }: {book: book}) => {
             <label onClick={uploadImage} className={`btn absolute bottom-0 right-1 p-1 bg-slate-500 hover:bg-slate-400 hover:text-white ${!imageMode && 'hidden'}`}><AiOutlineUpload /></label>
         </div>
     </div>
-  ) 
+  )
 }
  
 export default Book
