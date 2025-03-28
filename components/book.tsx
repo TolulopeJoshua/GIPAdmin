@@ -121,7 +121,7 @@ const Book = ({ book }: {book: book}) => {
                 </div>
             </div>
             <label className='text-xs text-slate-500 m-0 p-1' htmlFor="">Amazon Link</label>
-            <textarea className='bg-transparent border-b-2 border-0 w-full px-1 text-xs scrollbar' value={compBook.affiliates.amazon} onChange={onChange} name="amazon" id="" rows={1}></textarea>
+            <textarea className='bg-transparent border-b-2 border-0 w-full px-1 text-xs scrollbar' value={compBook.affiliates?.amazon} onChange={onChange} name="amazon" id="" rows={1}></textarea>
             <div className='flex mt-auto pt-2'>
                 <button onClick={onApprove} type='button' className='text-xs p-2 mr-auto'>{book.isApproved ? 'DISAPPROVE' : 'APPROVE'}</button>
                 <button disabled={!changed} onClick={onSave}><AiOutlineSave /></button>

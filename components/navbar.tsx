@@ -45,8 +45,8 @@ export default function Navbar() {
       toast.loading('Loading Documents...')
       dispatch(docsActions.setLoading(true))
       axios.get(url, { headers: {'Authorization': `Bearer ${auth.token}`}}).then(function (response) {
-        dispatch(docsActions.setDocs(response.data))
         dispatch(docsActions.setLoading(false))
+        dispatch(docsActions.setDocs(response.data))
         toast.dismiss()
         toast.success(' Done. ')
       }).catch(function (error) {
